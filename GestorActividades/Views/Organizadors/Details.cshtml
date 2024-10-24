@@ -1,30 +1,62 @@
 ﻿@model GestorActividades.Models.Organizador
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Organizador";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Detalles del Organizador</h1>
 
-<div>
-    <h4>Organizador</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.OrganizadorID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.Nombre</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Nombre)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@Model?.OrganizadorID" class="btn btn-warning">Editar</a>
+            <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h3>Actividades Organizadas</h3>
+        @if (Model.Actividades != null && Model.Actividades.Any())
+        {
+            <ul class="list-group">
+                @foreach (var actividad in Model.Actividades)
+                {
+                    <li class="list-group-item">
+                        <strong>@actividad.Titulo</strong><br />
+                        <span>@actividad.Fecha.ToString("d")</span> - <span>@actividad.Ubicacion</span>
+                        <div class="float-end">
+                            <a asp-controller="Actividads" asp-action="Details" asp-route-id="@actividad.ActividadID" class="btn btn-info btn-sm">Ver Detalles</a>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No hay actividades organizadas por este organizador.</p>
+        }
+        <div>
+            <a asp-controller="Actividads" asp-action="Create" class="btn btn-success mt-3">Crear Nueva Actividad</a>
+        </div>
+    </div>
 </div>

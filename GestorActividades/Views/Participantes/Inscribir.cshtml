@@ -1,0 +1,23 @@
+﻿@model IEnumerable<GestorActividades.Models.Actividad>
+
+@{
+    ViewData["Title"] = "Inscribirse en Actividad";
+}
+
+<h1>Inscribirse en una Nueva Actividad</h1>
+
+<form asp-action="Inscribir" method="post">
+    <input type="hidden" name="participanteId" value="@ViewBag.ParticipanteId" />
+    <div class="form-group">
+        <label for="actividadId">Seleccione una Actividad:</label>
+        <select class="form-control" id="actividadId" name="actividadId" required>
+            <option value="">Seleccione una actividad</option>
+            @foreach (var actividad in Model)
+            {
+                <option value="@actividad.ActividadID">@actividad.Titulo</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Inscribirse</button>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Cancelar</a>
+</form>

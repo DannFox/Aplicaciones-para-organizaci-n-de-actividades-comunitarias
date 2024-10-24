@@ -1,0 +1,35 @@
+﻿@model GestorActividades.Models.Actividad
+
+@{
+    ViewData["Title"] = "Añadir Participantes";
+}
+
+<h1>Añadir Participantes a @Model.Titulo</h1>
+
+<form asp-action="AddParticipantes" method="post">
+    <input type="hidden" asp-for="ActividadID" />
+
+    <div class="form-group">
+        <label for="participantes">Seleccione los Participantes:</label>
+        <ul>
+            @foreach (var participante in ViewBag.Participantes)
+            {
+                <li>
+                    <input type="checkbox" name="selectedParticipantes" value="@participante.ParticipanteId"
+                    @(Model.Participantes.Any(p => p.ParticipanteId == participante.ParticipanteId) ? "checked" : "") />
+                    @participante.Nombre
+                </li>
+            }
+        </ul>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Details" asp-route-id="@Model.ActividadID" class="btn btn-secondary">Cancelar</a>
+</form>
+
+<hr />
+
+<!-- Botón para crear un nuevo participante -->
+<div>
+    <a asp-controller="Participantes" asp-action="Create" class="btn btn-success">Crear Nuevo Participante</a>
+</div>

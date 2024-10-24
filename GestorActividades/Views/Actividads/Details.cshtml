@@ -1,68 +1,79 @@
 ﻿@model GestorActividades.Models.Actividad
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles de la Actividad";
 }
 
-<h1 class="text-center">Detalles de la actividad</h1>
+<h1>Detalles de la Actividad</h1>
 
-<div class="card mt-4 shadow-sm">
-    <div class="card-header bg-info text-white">
-        <h4 class="mb-0">Detalles</h4>
-    </div>
-    <div class="card-body">
-        <dl class="row">
-            <dt class="col-sm-3 font-weight-bold">
-                @Html.DisplayNameFor(model => model.Titulo)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Titulo)
-            </dd>
+<div>
+    <h4>Actividad</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
 
-            <dt class="col-sm-3 font-weight-bold">
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Descripcion)
-            </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
 
-            <dt class="col-sm-3 font-weight-bold">
-                @Html.DisplayNameFor(model => model.Fecha)
-            </dt>
-            <dd class="col-sm-9">
-                @Model.Fecha.ToString("dd/MM/yyyy")
-            </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaFormateada)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaFormateada)
+        </dd>
 
-            <dt class="col-sm-3 font-weight-bold">
-                @Html.DisplayNameFor(model => model.Ubicacion)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Ubicacion)
-            </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ubicacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ubicacion)
+        </dd>
 
-            <dt class="col-sm-3 font-weight-bold">
-                Organizador
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Organizador.Nombre)
-            </dd>
-        </dl>
-    </div>
+        <dt class="col-sm-2">
+            Organizador
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Organizador.Nombre
+        </dd>
+    </dl>
 </div>
 
-<div class="mt-4 d-flex justify-content-center">
-    <a asp-action="Edit" asp-route-id="@Model?.ActividadID" class="btn btn-primary mx-2">Editar</a>
-    <a asp-action="Index" class="btn btn-secondary mx-2">Volver a la lista</a>
-    <form asp-action="Delete" asp-route-id="@Model?.ActividadID" method="post" style="display:inline;">
-        <button type="submit" class="btn btn-danger mx-2" onclick="return confirm('¿Seguro que quiere eliminar esta actividad?');">Borrar</button>
-    </form>
-    </div>
+<hr />
 
+<h3>Participantes Registrados</h3>
+<div>
+    <a asp-action="AddParticipantes" asp-route-id="@Model.ActividadID" class="btn btn-primary mb-3">
+        Agregar Participantes
+    </a>
+</div>
 
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+@if (Model.Participantes != null && Model.Participantes.Any())
+{
+    <ul>
+        @foreach (var participante in Model.Participantes)
+        {
+            <li>@participante.Nombre</li>
+        }
+    </ul>
 }
+else
+{
+    <p>No hay participantes registrados en esta actividad.</p>
+}
+
+
+<hr />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ActividadID" class="btn btn-primary">Editar</a>
+    <a asp-action="Delete" asp-route-id="@Model.ActividadID" class="btn btn-warning">Borrar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+</div>

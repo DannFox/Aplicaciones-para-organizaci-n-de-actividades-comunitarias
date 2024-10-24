@@ -34,12 +34,13 @@ namespace GestorActividades.Controllers
             }
 
             var participante = await _context.Participantes
+                .Include(p => p.Actividades)
                 .FirstOrDefaultAsync(m => m.ParticipanteId == id);
             if (participante == null)
             {
                 return NotFound();
             }
-
+            ViewBag.ParticipanteId = participante.ParticipanteId;
             return View(participante);
         }
 
@@ -127,5 +128,49 @@ namespace GestorActividades.Controllers
         {
             return _context.Participantes.Any(e => e.ParticipanteId == id);
         }
+
+        // GET: Participantes/Inscribir/5
+        public async Task<IActionResult> Inscribir(int participanteId)
+        {
+            // Verificar que el participante existe
+            var participante = await _context.Participantes.FindAsync(participanteId);
+            if (participante == null)
+            {
+                return NotFound();
+            }
+
+            var actividades = await _context.Actividades.ToListAsync();
+            ViewBag.ParticipanteId = participanteId;
+            return View(actividades); // Asegúrate de que la vista reciba una lista de actividades
+        }
+
+
+        // POST: Participantes/Inscribir
+        [HttpPost]
+        public async Task<IActionResult> Inscribir(int participanteId, int actividadId)
+        {
+            // Verificar que el participante existe
+            var participante = await _context.Participantes
+                .Include(p => p.Actividades) // Asegúrate de incluir las actividades
+                .FirstOrDefaultAsync(p => p.ParticipanteId == participanteId);
+
+            // Verificar que la actividad existe
+            var actividad = await _context.Actividades.FindAsync(actividadId);
+
+            if (participante != null && actividad != null)
+            {
+                // Agrega la relación entre participante y actividad
+                if (!participante.Actividades.Any(a => a.ActividadID == actividadId)) // Evita duplicados
+                {
+                    participante.Actividades.Add(actividad);
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToAction("Details", new { id = participanteId });
+            }
+
+            return NotFound();
+        }
+
+
     }
 }

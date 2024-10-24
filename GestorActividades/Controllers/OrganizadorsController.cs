@@ -35,6 +35,7 @@ namespace GestorActividades.Controllers
             }
 
             var organizador = await _context.Organizadores
+                .Include(o => o.Actividades)
                 .FirstOrDefaultAsync(m => m.OrganizadorID == id);
             if (organizador == null)
             {

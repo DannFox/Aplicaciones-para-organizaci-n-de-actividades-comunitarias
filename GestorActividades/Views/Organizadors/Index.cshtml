@@ -37,7 +37,10 @@
                         </td>
                         <td class="text-center">
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <a class="btn btn-warning btn-sm me-2" asp-action="Edit" asp-route-id="@item.OrganizadorID">Editar</a>
+                                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.OrganizadorID">Editar</a>
+                                <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.OrganizadorID" data-toggle="tooltip" title="Detalles">
+                                    <i class="fas fa-info-circle"></i> Detalles
+                                </a>
                                 <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.OrganizadorID">Eliminar</a>
                             </div>
                         </td>

@@ -11,6 +11,8 @@
         public int OrganizadorID { get; set; }
         public Organizador Organizador { get; set; }
 
-        public ICollection<Participante> Participantes { get; set; }
+        public ICollection<Participante> Participantes { get; set; } = new List<Participante>();
+
+        public string FechaFormateada => Fecha.ToString("d");
     }
 }

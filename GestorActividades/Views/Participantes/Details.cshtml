@@ -32,8 +32,30 @@
         </dl>
     </div>
 
+    <div>
+        <h4>Actividades en las que Participa</h4>
+        <hr />
+        @if (Model.Actividades != null && Model.Actividades.Any())
+        {
+            <ul class="list-group">
+                @foreach (var actividad in Model.Actividades)
+                {
+                    <li class="list-group-item">
+                        @actividad.Titulo
+                        <a asp-controller="Actividads" asp-action="Details" asp-route-id="@actividad.ActividadID" class="btn btn-info btn-sm float-right">Ver Detalles</a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No está inscrito en ninguna actividad.</p>
+        }
+    </div>
+
     <div class="mt-4">
-        <a asp-action="Edit" asp-route-id="@Model?.ParticipanteId" class="btn btn-warning">Editar</a>
+        <a asp-action="Edit" asp-route-id="@Model.ParticipanteId" class="btn btn-warning">Editar</a>
         <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+        <a asp-action="Inscribir" asp-route-participanteId="@Model.ParticipanteId" class="btn btn-success">Inscribirse en una Actividad</a>
     </div>
 </div>

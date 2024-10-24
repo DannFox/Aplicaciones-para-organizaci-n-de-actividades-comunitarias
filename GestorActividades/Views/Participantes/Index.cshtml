@@ -27,24 +27,34 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.ParticipanteId">Editar</a>
+                                <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.ParticipanteId" data-toggle="tooltip" title="Detalles">
+                                    <i class="fas fa-info-circle"></i> Detalles
+                                </a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.ParticipanteId">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Telefono)
-                    </td>
-                    <td class="text-center">
-                        <div class="btn-group" role="group" aria-label="Acciones">
-                            <a class="btn btn-warning btn-sm me-2" asp-action="Edit" asp-route-id="@item.ParticipanteId">Editar</a>
-                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.ParticipanteId">Eliminar</a>
-                        </div>
-                    </td>
+                    <td colspan="4" class="text-center">No hay Participantes disponibles.</td>
                 </tr>
             }
         </tbody>
