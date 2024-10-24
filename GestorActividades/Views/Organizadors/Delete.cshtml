@@ -1,0 +1,36 @@
+﻿@model GestorActividades.Models.Organizador
+
+@{
+    ViewData["Title"] = "Eliminar Organizador";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Eliminar Organizador</h1>
+
+    <h3 class="text-danger">¿Está seguro de que desea eliminar este organizador?</h3>
+    <div>
+        <h4>Detalles del Organizador</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete" class="text-center">
+            <input type="hidden" asp-for="OrganizadorID" />
+            <input type="submit" value="Eliminar" class="btn btn-danger btn-lg" />
+            <a asp-action="Index" class="btn btn-secondary btn-lg ms-3">Volver a la Lista</a>
+        </form>
+    </div>
+</div>
+    

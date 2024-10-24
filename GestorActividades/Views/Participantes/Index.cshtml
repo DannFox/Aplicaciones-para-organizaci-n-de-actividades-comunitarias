@@ -1,0 +1,52 @@
+﻿@model IEnumerable<GestorActividades.Models.Participante>
+
+@{
+    ViewData["Title"] = "Lista de Participantes";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Lista de Participantes</h1>
+
+    <p class="text-end">
+        <a asp-action="Create" class="btn btn-primary">Crear Nuevo Participante</a>
+    </p>
+
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
+                <th class ="text-center" style="width: 250px;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group" role="group" aria-label="Acciones">
+                            <a class="btn btn-warning btn-sm me-2" asp-action="Edit" asp-route-id="@item.ParticipanteId">Editar</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.ParticipanteId">Eliminar</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

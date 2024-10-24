@@ -1,0 +1,62 @@
+﻿@model GestorActividades.Models.Actividad
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1 class="text-danger">Delete Activity</h1>
+
+<h3>Are you sure you want to delete this activity?</h3>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h4>Actividad Details</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Titulo)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Titulo)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Fecha)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Fecha.ToString("dd/MM/yyyy"))
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Ubicacion)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Ubicacion)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Organizador.Nombre) <!-- Cambia esto según tu modelo -->
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Organizador.Nombre) <!-- Cambia esto según tu modelo -->
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <form asp-action="DeleteConfirmed" method="post">
+            <input type="hidden" asp-for="ActividadID" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

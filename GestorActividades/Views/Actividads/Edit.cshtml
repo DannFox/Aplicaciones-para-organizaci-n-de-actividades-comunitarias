@@ -1,0 +1,60 @@
+﻿@model GestorActividades.Models.Actividad
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="text-center">Editar Actividad</h1>
+
+<div class="card mt-4 shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h4>Detalles de la actividad</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="ActividadID" />
+
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label font-weight-bold"></label>
+                <input asp-for="Titulo" class="form-control" placeholder="Enter activity title" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label font-weight-bold"></label>
+                <textarea asp-for="Descripcion" class="form-control" rows="3" placeholder="Enter activity description"></textarea>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label font-weight-bold"></label>
+                <input asp-for="Fecha" class="form-control" type="date" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Ubicacion" class="control-label font-weight-bold"></label>
+                <input asp-for="Ubicacion" class="form-control" placeholder="Enter activity location" />
+                <span asp-validation-for="Ubicacion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Organizador" class="control-label font-weight-bold">Organizador</label>
+                <select asp-for="OrganizadorID" class="form-control" asp-items="ViewBag.OrganizadorID"></select>
+                <span asp-validation-for="OrganizadorID" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <input type="submit" value="Guardar" class="btn btn-success mx-2" />
+                <a asp-action="Index" class="btn btn-secondary mx-2">Volver a la lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

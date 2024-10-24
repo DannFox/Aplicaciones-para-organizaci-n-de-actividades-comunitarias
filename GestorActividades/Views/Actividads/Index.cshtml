@@ -1,0 +1,47 @@
+﻿@model IEnumerable<GestorActividades.Models.Actividad>
+
+@{
+    ViewData["Title"] = "Actividades";
+}
+
+<h1 class="text-center my-4">Lista de Actividades</h1>
+
+<div class="d-flex justify-content-between mb-3">
+    <p class="lead">A continuación se muestran las actividades principales.</p>
+    <a class="btn btn-primary mt-2" asp-action="Create"><i class="fas fa-plus-circle"></i> Crear Nueva Actividad</a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+            <th>@Html.DisplayNameFor(model => model.Fecha)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                <td>@item.Fecha.ToString("d")</td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.ActividadID" data-toggle="tooltip" title="Ver detalles">
+                        <i class="fas fa-info-circle"></i> Ver detalles
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}
