@@ -132,7 +132,6 @@ namespace GestorActividades.Controllers
         // GET: Participantes/Inscribir/5
         public async Task<IActionResult> Inscribir(int participanteId)
         {
-            // Verificar que el participante existe
             var participante = await _context.Participantes.FindAsync(participanteId);
             if (participante == null)
             {
@@ -141,7 +140,7 @@ namespace GestorActividades.Controllers
 
             var actividades = await _context.Actividades.ToListAsync();
             ViewBag.ParticipanteId = participanteId;
-            return View(actividades); // Asegúrate de que la vista reciba una lista de actividades
+            return View(actividades); 
         }
 
 
@@ -149,18 +148,15 @@ namespace GestorActividades.Controllers
         [HttpPost]
         public async Task<IActionResult> Inscribir(int participanteId, int actividadId)
         {
-            // Verificar que el participante existe
             var participante = await _context.Participantes
-                .Include(p => p.Actividades) // Asegúrate de incluir las actividades
+                .Include(p => p.Actividades) 
                 .FirstOrDefaultAsync(p => p.ParticipanteId == participanteId);
 
-            // Verificar que la actividad existe
             var actividad = await _context.Actividades.FindAsync(actividadId);
 
             if (participante != null && actividad != null)
             {
-                // Agrega la relación entre participante y actividad
-                if (!participante.Actividades.Any(a => a.ActividadID == actividadId)) // Evita duplicados
+                if (!participante.Actividades.Any(a => a.ActividadID == actividadId))
                 {
                     participante.Actividades.Add(actividad);
                     await _context.SaveChangesAsync();

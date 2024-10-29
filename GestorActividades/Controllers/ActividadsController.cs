@@ -141,7 +141,6 @@ namespace GestorActividades.Controllers
                 return NotFound();
             }
 
-            // Obtener todos los participantes disponibles
             ViewBag.Participantes = _context.Participantes.ToList();
 
             return View(actividad);
@@ -159,7 +158,6 @@ namespace GestorActividades.Controllers
                 return NotFound();
             }
 
-            // Actualizar los participantes seleccionados
             actividad.Participantes.Clear();
             foreach (var participanteId in selectedParticipantes)
             {
