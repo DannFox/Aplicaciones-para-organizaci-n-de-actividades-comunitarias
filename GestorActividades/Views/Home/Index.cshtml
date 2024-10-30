@@ -16,6 +16,7 @@
                     <li>Daniel Alejandro Hernandez Bonilla</li>
                     <li>Christian Javier Lopez Morales</li>
                     <li>Julissa Alexandra Osegueda Hernández</li>
+                    <li>Kenneth David Olmedo Damas</li>
                 </ul>
             </div>
 
@@ -27,5 +28,20 @@
         <div class="col-md-6 text-center">
             <img src="https://preview.redd.it/i-think-this-is-a-good-example-of-a-liminal-space-that-v0-buxa49mex1qb1.jpg?width=640&crop=smart&auto=webp&s=cd523a404401f34aadd57d684f196014b2095054" alt="Foto del proyecto" class="img-fluid" style="max-width: 100%;" />
         </div>
+        <audio id="audio" src="https://www.winhistory.de/more/winstart/mp3/win95.mp3" preload="auto"></audio>
+        <script>
+            var audioPlayed = false; // Variable para controlar si el audio ya fue reproducido
+
+            // Escuchar clics en cualquier parte de la página
+            document.body.onclick = function () {
+                if (!audioPlayed) { // Verifica si el audio ya fue reproducido
+                    var audio = document.getElementById("audio");
+                    audio.play().catch(function (error) {
+                        console.log("Error al intentar reproducir el sonido: " + error);
+                    });
+                    audioPlayed = true; // Marca el audio como reproducido
+                }
+            }
+        </script>
     </div>
 </div>
